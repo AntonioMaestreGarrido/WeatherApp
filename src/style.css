@@ -1,0 +1,25 @@
+
+*{
+    margin: 0;
+    padding: 0;
+    
+    background-color:  darkgray;
+}
+h1{
+    font-size: 60px;
+}
+
+#container{
+    border: solid black 3px;
+    margin: 100px auto ;
+    display: flex;
+    flex-direction: row;
+    width: min-content;
+    padding: 20px;
+}
+#iconContainer{
+    margin: 20px;
+    background-color: darkgreen;
+    width: 200px;
+    height: 200px;
+}
