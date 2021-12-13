@@ -3,23 +3,67 @@
     margin: 0;
     padding: 0;
     
-    background-color:  darkgray;
+    
 }
 h1{
     font-size: 60px;
+    background-color: cadetblue;
+    margin: 15px;
 }
 
 #container{
     border: solid black 3px;
     margin: 100px auto ;
-    display: flex;
-    flex-direction: row;
-    width: min-content;
+   
+   
     padding: 20px;
+
+}
+body{
+    background-color: rgb(23, 76, 78);
+}
+#textContainer{
+    
+   
+    background-color: rgba(165, 207, 218, 0.582);
+    font-size: 32px;
 }
 #iconContainer{
-    margin: 20px;
-    background-color: darkgreen;
+    margin: 20px ;
+    background-color: rgba(165, 207, 218, 0.582);
     width: 200px;
     height: 200px;
+}
+.form{
+    position: absolute;
+    left: 45%;
+    top: 25%;
+    background-color: rgb(0, 153, 255);
+    width: max-content;
+    height: 220px;
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    
+}
+button{
+    margin: 10px;
+    width: 100px;
+    height: 40px;
+    font-size: 20px;
+    border-radius: 15px;
+    border: solid 4px blue;
+    
+}
+textarea{
+    font-size: 15px;
+    width: 150px;
+    height: 20px;
+    background-color: rgb(134, 218, 233);
+    margin: 10px;
+    border-radius: 5px;
+
 }

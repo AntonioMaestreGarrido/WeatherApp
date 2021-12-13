@@ -1,12 +1,8 @@
 // API KEY 94bb022db166cb23ddcccab435aa0727
 const APIKEY = "94bb022db166cb23ddcccab435aa0727";
 
-var city = "Malaga";
 const root = document.querySelector("#root");
-
-getData();
-//createObjectData()
-//api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}  "https://api.giphy.com/v1/gifs/translate?api_key=2Tds4gFBxYcb2yflSus1WvEd20FGYuMf&s="
+window.addEventListener("load", changueCity);
 
 function createObjectData(rawData) {
   console.log(typeof ("el tipo es " + rawData));
@@ -17,31 +13,51 @@ function createObjectData(rawData) {
     temp: rawData.main.temp,
     feelLike: rawData.main.feels_like,
     wind: rawData.wind.speed,
+    icon: rawData.weather[0].icon,
   };
   console.table(data);
-  makeHTML(data)
+  makeHTML(data);
 }
 
-async function getData() {
+async function getData(city) {
   const getclima = await fetch(
-    "https://api.openweathermap.org/data/2.5/weather?q=pekin&appid=94bb022db166cb23ddcccab435aa0727&units=metric&lang=es ",
+    `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=94bb022db166cb23ddcccab435aa0727&units=metric&lang=es`,
     { mode: "cors" }
   );
   rawData = await getclima.json();
   console.log(typeof ("el tipo es " + rawData));
   console.log(rawData);
-  createObjectData(rawData);
+  if (!rawData.name) {
+    changueCity();
+  } else {
+    createObjectData(rawData);
+  }
   return rawData;
 }
 function makeHTML(data) {
-  const root =document.querySelector("#textContainer");
-  const city = createDomElement("h1", data.cityname, root, "");
+  document.querySelector("#ciudad").textContent = data.cityname;
+  document.querySelector("#ciudad").addEventListener("click", changueCity);
+
+  const c2=createDomElement("div","#c",document.querySelector("#container"))
+  
+  const root = document.querySelector("#textContainer");
+  root.innerHTML = "";
   const description = createDomElement("h2", data.weather, root, "");
-  const temp = createDomElement("div", data.temp, root, "");
-  const fellTemp = createDomElement("div", data.feelLike, root, "");
-  const wind = createDomElement("div", data.wind, root, "");
+  const temp = createDomElement("div", `Temperatura ${data.temp}º`, root, "");
+  const fellTemp = createDomElement(
+    "div",
+    `Sensacion termica ${data.feelLike}º`,
+    root,
+    ""
+  );
+  const wind = createDomElement("div", `viento ${data.wind} m/s`, root, "");
   //const iconcontainer = createDomElement("div", "", root, "icon");
-  document.querySelector("#icon").setAttribute("src","http://openweathermap.org/img/wn/10n@4x.png")
+  document
+    .querySelector("#icon")
+    .setAttribute(
+      "src",
+      `http://openweathermap.org/img/wn/${data.icon}@4x.png`
+    );
 }
 
 function createDomElement(tag, inner, parent, clase) {
@@ -53,3 +69,20 @@ function createDomElement(tag, inner, parent, clase) {
   }
   return newElement;
 }
+function changueCity() {
+  const form = createDomElement(
+    "div",
+    "",
+    document.querySelector("body"),
+    "form"
+  );
+  const text = createDomElement("textarea", "", form, "");
+  const b = createDomElement("button", "enviar", form, "");
+  b.addEventListener("click", () => {
+    form.innerHTML = "";
+    console.log("clcik");
+    getData(text.value);
+  });
+}
+
+
